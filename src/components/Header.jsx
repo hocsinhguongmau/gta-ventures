@@ -1,9 +1,17 @@
+import useMetaMask from '@hooks/useMetamask';
 import { formatAddress } from '@services/frontend';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 export default function Header() {
+  const { isActive, connect, account } = useMetaMask();
+  const handleConnectWallet = (e) => {
+    e.preventDefault();
+    if (!account) {
+      connect();
+    }
+  };
   return (
     <div className="flex flex-row items-center justify-between pt-10">
       <div className="flex flex-row items-center gap-16">
@@ -38,27 +46,30 @@ export default function Header() {
             className="mx-auto mt-2.5"
           />
         </span>
-        {/* Not login */}
-        <button className="btn-ghost btn">Connect Wallet</button>
-        {/* Logged in */}
-        <div className="dropdown-end dropdown">
-          <label tabIndex={0} className="m-1 rounded-full border border-main px-6 py-3 text-main">
-            {formatAddress('0x252123456sdsads')}
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu rounded-box mt-4 w-52 bg-[#040f18] p-2 text-center"
-          >
-            <li>
-              <Link href="/my-profile" className="block focus:bg-transparent">
-                Your NFTs
-              </Link>
-            </li>
-            <li>
-              <button className="mx-auto text-red-500 focus:bg-transparent">Log out</button>
-            </li>
-          </ul>
-        </div>
+        {!isActive ? (
+          <button className="btn-ghost btn" onClick={handleConnectWallet}>
+            Connect Wallet
+          </button>
+        ) : (
+          <div className="dropdown-end dropdown">
+            <label tabIndex={0} className="m-1 rounded-full border border-main px-6 py-3 text-main">
+              {formatAddress(account)}
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu rounded-box mt-4 w-52 bg-[#040f18] p-2 text-center"
+            >
+              <li>
+                <Link href="/my-profile" className="block focus:bg-transparent">
+                  Your NFTs
+                </Link>
+              </li>
+              <li>
+                <button className="mx-auto text-red-500 focus:bg-transparent">Log out</button>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

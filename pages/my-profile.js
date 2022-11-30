@@ -1,5 +1,5 @@
 import MyProfileComponent from '@components/MyProfileComponent/MyProfileComponent';
 
-export default function Home() {
+export default function MyProfile() {
   return <MyProfileComponent />;
 }

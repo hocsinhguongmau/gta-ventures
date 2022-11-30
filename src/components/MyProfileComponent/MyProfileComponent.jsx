@@ -1,9 +1,12 @@
+import useMetaMask from '@hooks/useMetamask';
 import { formatAddress } from '@services/frontend';
 import Image from 'next/image';
 import React from 'react';
 import NFTItem from './NFTItem';
 
 export default function MyProfileComponent() {
+  const { account } = useMetaMask();
+
   return (
     <div>
       <h1
@@ -14,14 +17,17 @@ export default function MyProfileComponent() {
       </h1>
       <div className="mt-5 flex flex-row items-center gap-14 rounded-2xl bg-[#042238]">
         <div className="w-[259px] shrink-0 grow-0 rounded-2xl bg-[#00121f] pt-1 pb-4">
-          <Image src="/assets/images/footer-logo.png" className="mx-auto" width={101} height={89} />
+          <Image
+            src="/assets/images/footer-logo.png"
+            className="mx-auto"
+            alt=""
+            width={101}
+            height={89}
+          />
         </div>
         <div>
           <p className="text-[18px] font-semibold">
-            Wallet:{' '}
-            <span className="ml-8 inline-block text-main">
-              {formatAddress('0x252123123sdsads')}
-            </span>
+            Wallet: <span className="ml-8 inline-block text-main">{formatAddress(account)}</span>
           </p>
           <p className="mt-2 text-[18px] font-semibold">
             NFTs: <span className="ml-8 inline-block text-main">1</span>
