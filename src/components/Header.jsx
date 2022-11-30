@@ -41,7 +41,7 @@ export default function Header() {
         {/* Not login */}
         <button className="btn-ghost btn">Connect Wallet</button>
         {/* Logged in */}
-        <div className="dropdown dropdown-end">
+        <div className="dropdown-end dropdown">
           <label tabIndex={0} className="m-1 rounded-full border border-main px-6 py-3 text-main">
             {formatAddress('0x252123456sdsads')}
           </label>
@@ -50,10 +50,12 @@ export default function Header() {
             className="dropdown-content menu rounded-box mt-4 w-52 bg-[#040f18] p-2 text-center"
           >
             <li>
-              <Link href="/">Your NFTs</Link>
+              <Link href="/my-profile" className="block focus:bg-transparent">
+                Your NFTs
+              </Link>
             </li>
             <li>
-              <button className="mx-auto text-red-500">Log out</button>
+              <button className="mx-auto text-red-500 focus:bg-transparent">Log out</button>
             </li>
           </ul>
         </div>

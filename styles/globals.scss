@@ -41,6 +41,11 @@ a {
   &.uppercase {
     text-transform: uppercase;
   }
+  &.btn-vip {
+    background-color: #050f19;
+    height: 70px;
+    @apply text-xl font-extrabold text-main;
+  }
 }
 
 .input {

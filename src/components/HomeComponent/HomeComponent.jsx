@@ -2,8 +2,11 @@ import Image from 'next/image';
 import React from 'react';
 import FlipCountdown from '@rumess/react-flip-countdown';
 import { BsCheck } from 'react-icons/bs';
+import usePopupStore from '@store/popup';
 
 export default function HomeComponent() {
+  const setOpen = usePopupStore((state) => state.setOpen);
+
   return (
     <div className="relative">
       <div className="main-background relative z-20 my-32 h-[691px] w-3/4 rounded-2xl">
@@ -66,7 +69,12 @@ export default function HomeComponent() {
             <button className="btn w-full max-w-[290px] uppercase">Follow the tasks</button>
           </p>
           <p className="mt-4">
-            <button className="btn-ghost btn w-full max-w-[290px] uppercase">Claim</button>
+            <button
+              className="btn-ghost btn w-full max-w-[290px] uppercase"
+              onClick={() => setOpen(true)}
+            >
+              Claim
+            </button>
           </p>
         </div>
       </div>
