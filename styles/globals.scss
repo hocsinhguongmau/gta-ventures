@@ -46,6 +46,11 @@ a {
     height: 70px;
     @apply text-xl font-extrabold text-main;
   }
+  &:disabled {
+    background-color: gray;
+    border: gray;
+    color: #fff;
+  }
 }
 
 .input {

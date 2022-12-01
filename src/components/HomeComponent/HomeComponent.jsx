@@ -11,12 +11,20 @@ import { useCheckUserIsInWhitelist } from '../../hooks/query';
 import useMetamask from '../../hooks/useMetamask';
 import { PROJECT_CONTRACT, COUNTDOWN_DATE, TASKS_URL } from '../../constants/index';
 import Link from 'next/link';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
 
 export default function HomeComponent() {
   const setOpen = usePopupStore((state) => state.setOpen);
   const { connect, web3Instance, isActive } = useMetamask();
   const claimTicketMutation = useClaimTicketMutation();
   const { data: isWhitelisted } = useCheckUserIsInWhitelist(web3Instance, PROJECT_CONTRACT);
+
+  const now = dayjs.utc();
+  const _claimEndDate = dayjs.utc(COUNTDOWN_DATE);
+  const isExpireClaimDate = now.isAfter(_claimEndDate);
 
   const setContent = usePopupStore((state) => state.setContent);
   const handleClaim = async () => {
@@ -95,6 +103,7 @@ export default function HomeComponent() {
               hourTitle="Hours"
               minuteTitle="Minutes"
               secondTitle="Seconds"
+              endAtZero
               endAt={COUNTDOWN_DATE} // Date/Time
             />
           </div>
@@ -110,10 +119,11 @@ export default function HomeComponent() {
             </Link>
           </p>
           <p className="mt-4">
-            {isActive ? (
+            {!isActive ? (
               <button
                 className="btn-ghost btn w-full max-w-[290px] uppercase"
                 onClick={handleClaim}
+                disabled={isExpireClaimDate}
               >
                 Claim
               </button>
