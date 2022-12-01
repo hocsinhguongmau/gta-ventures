@@ -38,9 +38,13 @@ export default function MyProfileComponent() {
         </div>
       </div>
       <p className="mt-14 text-[18px] text-main">{`NFTs (${minableNft})`}</p>
-      <div className="mt-7 grid grid-cols-3 gap-20">
-        <NFTItem />
-      </div>
+      {minableNft ? (
+        <div className="mt-7 grid grid-cols-3 gap-20">
+          <NFTItem />
+        </div>
+      ) : (
+        <p className="mt-7">You have no item</p>
+      )}
     </div>
   );
 }
