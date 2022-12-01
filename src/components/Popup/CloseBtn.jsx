@@ -1,7 +1,7 @@
 import usePopupStore from '@store/popup';
 import React from 'react';
 
-export default function ClostBtn() {
+export default function CloseBtn() {
   const setOpen = usePopupStore((state) => state.setOpen);
   const setContent = usePopupStore((state) => state.setContent);
 

@@ -1,5 +1,3 @@
-export const BACKEND_API_URL = 'https://senapp-nodejs-dev.herokuapp.com';
-
 // DEV
 export const COIN_CHAIN_ID = process.env.COIN_CHAIN_ID || 5;
 export const COIN_CHAIN_NAME = process.env.COIN_CHAIN_ID || 'Goerli Testnet';
@@ -12,4 +10,9 @@ export const COOKIES = {
 };
 export const ETHER_SCAN_URL = process.env.ETHER_SCAN_URL || 'https://goerli.etherscan.io/tx';
 
-export const countdownDate = '2022.10.17';
+export const COUNTDOWN_DATE = process.env.COUNTDOWN_DATE || '2022-12-12';
+
+export const PROJECT_CONTRACT =
+  process.env.PROJECT_CONTRACT || '0xC057aB5cA662426E6455a94416b4ab14902fF95c';
+
+export const TASKS_URL = process.env.TASKS_URL || 'https://gleam.io/';

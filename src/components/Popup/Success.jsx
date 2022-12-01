@@ -1,4 +1,5 @@
 import { BsCheck2Circle } from 'react-icons/bs';
+import CloseBtn from './CloseBtn';
 
 export const Success = () => {
   return (
@@ -10,6 +11,7 @@ export const Success = () => {
       </p>
       <p className="mt-10 text-[16px] font-bold">Claim NFT successfully</p>
       <p className="mt-3 text-xs text-gray">Confirm this transaction in your wallet</p>
+      <CloseBtn />
     </>
   );
 };

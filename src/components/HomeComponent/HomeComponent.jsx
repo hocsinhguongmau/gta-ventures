@@ -4,14 +4,46 @@ import FlipCountdown from '@rumess/react-flip-countdown';
 import { BsCheck } from 'react-icons/bs';
 import usePopupStore from '@store/popup';
 import { Waiting } from '@components/Popup/Waiting';
+import { Error } from '@components/Popup/Error';
+import { Success } from '@components/Popup/Success';
+import { useClaimTicketMutation } from '../../hooks/mutations';
+import { useCheckUserIsInWhitelist } from '../../hooks/query';
+import useMetamask from '../../hooks/useMetamask';
+import { PROJECT_CONTRACT, COUNTDOWN_DATE, TASKS_URL } from '../../constants/index';
+import Link from 'next/link';
 
 export default function HomeComponent() {
   const setOpen = usePopupStore((state) => state.setOpen);
-  const setContent = usePopupStore((state) => state.setContent);
+  const { connect, web3Instance, isActive } = useMetamask();
+  const claimTicketMutation = useClaimTicketMutation();
+  const { data: isWhitelisted } = useCheckUserIsInWhitelist(web3Instance, PROJECT_CONTRACT);
 
-  const handleOpenPopup = () => {
-    setOpen(true);
-    setContent(<Waiting />);
+  const setContent = usePopupStore((state) => state.setContent);
+  const handleClaim = async () => {
+    if (!isWhitelisted) {
+      setOpen(true);
+      setContent(<Error title={'You are not in Whitelist'} errorText={'Please check again'} />);
+      return;
+    }
+    try {
+      setOpen(true);
+      setContent(<Waiting />);
+      const receipt = await claimTicketMutation.mutateAsync({
+        web3: web3Instance,
+        projectContract: PROJECT_CONTRACT,
+      });
+
+      if (receipt) {
+        setOpen(true);
+        setContent(<Success />);
+      } else {
+        setOpen(true);
+        setContent(<Error title={'Error'} errorText={'Unexpected error'} />);
+      }
+    } catch (error) {
+      setOpen(true);
+      setContent(<Error title={'Something wrong'} errorText={error} />);
+    }
   };
 
   return (
@@ -63,7 +95,7 @@ export default function HomeComponent() {
               hourTitle="Hours"
               minuteTitle="Minutes"
               secondTitle="Seconds"
-              endAt={'2022-12-12 01:26:58'} // Date/Time
+              endAt={COUNTDOWN_DATE} // Date/Time
             />
           </div>
           <p className="mt-10 text-sm">
@@ -73,15 +105,23 @@ export default function HomeComponent() {
             Only whitelisted people can get this NFT
           </p>
           <p className="mt-5">
-            <button className="btn w-full max-w-[290px] uppercase">Follow the tasks</button>
+            <Link className="btn w-full max-w-[290px] uppercase" href={TASKS_URL} target="_blank">
+              Follow the tasks
+            </Link>
           </p>
           <p className="mt-4">
-            <button
-              className="btn-ghost btn w-full max-w-[290px] uppercase"
-              onClick={handleOpenPopup}
-            >
-              Claim
-            </button>
+            {isActive ? (
+              <button
+                className="btn-ghost btn w-full max-w-[290px] uppercase"
+                onClick={handleClaim}
+              >
+                Claim
+              </button>
+            ) : (
+              <button className="btn-ghost btn w-full max-w-[290px] uppercase" onClick={connect}>
+                Connect to wallet
+              </button>
+            )}
           </p>
         </div>
       </div>

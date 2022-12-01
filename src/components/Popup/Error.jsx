@@ -1,6 +1,7 @@
 import Image from 'next/image';
+import CloseBtn from './CloseBtn';
 
-export const Error = () => {
+export const Error = ({ title, errorText }) => {
   return (
     <>
       <p>
@@ -12,8 +13,9 @@ export const Error = () => {
           className="mx-auto"
         />
       </p>
-      <p className="mt-10 text-[16px] font-bold">You are not in Whitelist</p>
-      <p className="mt-3 text-xs text-gray">Please check again</p>
+      <p className="mt-10 text-[16px] font-bold">{title}</p>
+      <p className="mt-3 text-xs text-gray">{errorText}</p>
+      <CloseBtn />
     </>
   );
 };

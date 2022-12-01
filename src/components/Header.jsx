@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 
 export default function Header() {
-  const { isActive, connect, account } = useMetaMask();
+  const { isActive, connect, account, disconnect } = useMetaMask();
   const handleConnectWallet = (e) => {
     e.preventDefault();
     if (!account) {
@@ -65,7 +65,9 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <button className="mx-auto text-red-500 focus:bg-transparent">Log out</button>
+                <button className="mx-auto text-red-500 focus:bg-transparent" onClick={disconnect}>
+                  Log out
+                </button>
               </li>
             </ul>
           </div>
