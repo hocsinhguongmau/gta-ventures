@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import React from 'react';
-import FlipCountdown from '@rumess/react-flip-countdown';
 import { BsCheck } from 'react-icons/bs';
 import usePopupStore from '@store/popup';
 import { Waiting } from '@components/Popup/Waiting';
@@ -13,6 +12,7 @@ import { PROJECT_CONTRACT, COUNTDOWN_DATE, TASKS_URL } from '../../constants/ind
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import Countdown from './Countdown';
 
 dayjs.extend(utc);
 
@@ -91,22 +91,7 @@ export default function HomeComponent() {
           </p>
           <span className="mt-6 block h-[5px] w-[114px] bg-[#0c455a]" />
           <p className="mt-10 font-semibold">Time to claim</p>
-          <div className="clock">
-            <FlipCountdown
-              size="small"
-              hideYear
-              hideMonth
-              titlePosition="bottom"
-              yearTitle="Year"
-              monthTitle="Months"
-              dayTitle="Days"
-              hourTitle="Hours"
-              minuteTitle="Minutes"
-              secondTitle="Seconds"
-              endAtZero
-              endAt={COUNTDOWN_DATE} // Date/Time
-            />
-          </div>
+          <Countdown />
           <p className="mt-10 text-sm">
             <span className="mr-2 inline-block h-[18px] w-[18px] rounded-full bg-main align-top text-white">
               <BsCheck className="mx-auto text-xl" />
