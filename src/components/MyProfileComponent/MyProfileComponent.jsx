@@ -3,10 +3,13 @@ import { formatAddress } from '@services/frontend';
 import Image from 'next/image';
 import React from 'react';
 import NFTItem from './NFTItem';
+import { useGetMintableNftQuery } from '../../hooks/query';
+import { PROJECT_CONTRACT } from '../../constants/index';
 
 export default function MyProfileComponent() {
-  const { account } = useMetaMask();
+  const { account, web3Instance } = useMetaMask();
 
+  const { data: minableNft = 0 } = useGetMintableNftQuery(web3Instance, PROJECT_CONTRACT);
   return (
     <div>
       <h1
@@ -30,11 +33,11 @@ export default function MyProfileComponent() {
             Wallet: <span className="ml-8 inline-block text-main">{formatAddress(account)}</span>
           </p>
           <p className="mt-2 text-[18px] font-semibold">
-            NFTs: <span className="ml-8 inline-block text-main">1</span>
+            NFTs: <span className="ml-8 inline-block text-main">{minableNft}</span>
           </p>
         </div>
       </div>
-      <p className="mt-14 text-[18px] text-main">NFTs (1)</p>
+      <p className="mt-14 text-[18px] text-main">{`NFTs (${minableNft})`}</p>
       <div className="mt-7 grid grid-cols-3 gap-20">
         <NFTItem />
       </div>

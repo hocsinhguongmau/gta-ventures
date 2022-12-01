@@ -1,1 +1,1 @@
-export * from './senpad-query';
+export * from './blockchain-query';

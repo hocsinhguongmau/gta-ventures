@@ -90,3 +90,26 @@ export const isUserInWhitelisted = (web3Instance, projectContract) => {
     });
   };
 };
+
+export const fetchMintableNft = (web3Instance, projectContract) => {
+  return () => {
+    return new Promise(async (resolve, reject) => {
+      if (!web3Instance) {
+        reject('Web3 is null');
+        return;
+      }
+      try {
+        const [address] = await web3Instance.eth.getAccounts();
+
+        const senpadContract = new web3Instance.eth.Contract(SENPAD_ABI, projectContract, {
+          from: address,
+        });
+        const mintableNfts = await senpadContract.methods.get_mintable_nft_count_by_user().call();
+
+        resolve(mintableNfts);
+      } catch (e) {
+        reject(e.message);
+      }
+    });
+  };
+};
