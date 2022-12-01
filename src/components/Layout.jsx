@@ -1,7 +1,7 @@
 import Header from './Header';
 import Footer from './Footer';
 import Image from 'next/image';
-import Popup from './Popup';
+import Popup from './Popup/Popup';
 import usePopupStore from '@store/popup';
 
 export default function Layout({ children }) {

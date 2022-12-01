@@ -3,9 +3,16 @@ import React from 'react';
 import FlipCountdown from '@rumess/react-flip-countdown';
 import { BsCheck } from 'react-icons/bs';
 import usePopupStore from '@store/popup';
+import { Waiting } from '@components/Popup/Waiting';
 
 export default function HomeComponent() {
   const setOpen = usePopupStore((state) => state.setOpen);
+  const setContent = usePopupStore((state) => state.setContent);
+
+  const handleOpenPopup = () => {
+    setOpen(true);
+    setContent(<Waiting />);
+  };
 
   return (
     <div className="relative">
@@ -71,7 +78,7 @@ export default function HomeComponent() {
           <p className="mt-4">
             <button
               className="btn-ghost btn w-full max-w-[290px] uppercase"
-              onClick={() => setOpen(true)}
+              onClick={handleOpenPopup}
             >
               Claim
             </button>
