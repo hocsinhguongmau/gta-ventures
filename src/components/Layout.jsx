@@ -8,7 +8,7 @@ export default function Layout({ children }) {
   const open = usePopupStore((state) => state.open);
   return (
     <div
-      className={`relative min-h-screen overflow-hidden bg-[#020d14] ${
+      className={`relative min-h-screen overflow-hidden bg-[#020d14] px-10 ${
         open ? 'h-screen overflow-hidden' : ''
       }`}
     >
@@ -28,7 +28,7 @@ export default function Layout({ children }) {
       />
       <div className="container relative z-10 mx-auto flex min-h-screen flex-col justify-between">
         <Header />
-        <div className="h-full pb-20">{children}</div>
+        <div className="h-full lg:pb-20">{children}</div>
         <Footer />
       </div>
       <Popup />

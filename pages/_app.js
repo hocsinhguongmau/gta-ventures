@@ -7,7 +7,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { Web3ReactProvider } from '@web3-react/core';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], display: 'fallback' });
 
 function getLibrary(provider) {
   const library = new Web3Provider(provider);

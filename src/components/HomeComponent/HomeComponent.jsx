@@ -66,7 +66,7 @@ export default function HomeComponent() {
 
   return (
     <div className="relative">
-      <div className="main-background relative z-20 my-32 h-[691px] w-3/4 rounded-2xl">
+      <div className="main-background relative z-20 my-8 h-[691px] w-full rounded-2xl md:my-16 lg:my-32 lg:w-3/4">
         <div
           className="absolute top-0 left-0 z-0 h-full w-full rounded-2xl opacity-25"
           style={{
@@ -79,18 +79,18 @@ export default function HomeComponent() {
           alt=""
           width={647}
           height={407}
-          className="absolute top-1/2 left-1/2 z-10 -translate-y-1/2"
+          className="absolute top-1/2 left-1/2 z-10 hidden -translate-y-1/2 lg:block"
         />
         <div className="relative z-20">
           <h1 className="relative">
-            <p className="main-text relative">
+            <p className="main-text relative ">
               GTA VIP PASS NFT
               <Image
                 src="/assets/images/crown.png"
                 width={33}
                 height={20}
                 alt=""
-                className="absolute -top-5 left-[178px] z-20"
+                className="absolute -top-4 left-[176px] z-20"
               />
             </p>
             <p className="text-shadow">GTA VIP PAS NFT</p>
@@ -153,7 +153,7 @@ export default function HomeComponent() {
           </p>
         </div>
       </div>
-      <div className="absolute -top-16 left-1/2 z-0 h-[818px] w-1/2 rounded-2xl bg-main">
+      <div className="absolute -top-16 left-1/2 z-0 hidden h-[818px] w-1/2 rounded-2xl bg-main lg:block">
         <Image
           src="/assets/images/vertical-text.png"
           alt=""
