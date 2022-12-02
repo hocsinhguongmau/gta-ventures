@@ -104,7 +104,7 @@ export default function HomeComponent() {
             </Link>
           </p>
           <p className="mt-4">
-            {!isActive ? (
+            {isActive ? (
               <button
                 className="btn-ghost btn w-full max-w-[290px] uppercase"
                 onClick={handleClaim}
