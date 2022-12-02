@@ -10,7 +10,7 @@ const nextConfig = {
     ],
   },
   env: {
-    COIN_CHAIN_ID: process.env.COIN_CHAIN_ID,
+    COIN_CHAIN_ID: parseInt(process.env.COIN_CHAIN_ID || 5),
     CURRENT_RPC: process.env.CURRENT_RPC,
     ETHER_SCAN_URL: process.env.ETHER_SCAN_URL,
     COUNTDOWN_DATE: process.env.COUNTDOWN_DATE,

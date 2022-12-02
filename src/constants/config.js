@@ -1,5 +1,5 @@
 // DEV
-export const COIN_CHAIN_ID = process.env.COIN_CHAIN_ID || 5;
+export const COIN_CHAIN_ID = parseInt(process.env.COIN_CHAIN_ID || 5);
 export const COIN_CHAIN_NAME = process.env.COIN_CHAIN_ID || 'Goerli Testnet';
 export const SUPPORTED_CHAIN_IDS = [COIN_CHAIN_ID];
 export const CURRENT_RPC =
