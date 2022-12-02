@@ -13,10 +13,13 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import FlipCountdown from '@rumess/react-flip-countdown';
 import { useCheckClaimPass, useCheckUserIsInWhitelist } from '../../hooks/query';
+import { useQueryClient } from 'react-query';
+import { QUERY_KEY } from '../../constants/index';
 
 dayjs.extend(utc);
 
 export default function HomeComponent() {
+  const queryClient = useQueryClient();
   const setOpen = usePopupStore((state) => state.setOpen);
   const { connect, web3Instance, isActive } = useMetamask();
   const claimTicketMutation = useClaimTicketMutation();
@@ -48,6 +51,7 @@ export default function HomeComponent() {
       });
 
       if (receipt) {
+        queryClient.invalidateQueries([QUERY_KEY.CHECK_CLAIM_PASS]);
         setOpen(true);
         setContent(<Success />);
       } else {
