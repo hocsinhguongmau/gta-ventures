@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import { BsCheck } from 'react-icons/bs';
 import usePopupStore from '@store/popup';
 import { Waiting } from '@components/Popup/Waiting';
@@ -12,7 +12,7 @@ import { PROJECT_CONTRACT, COUNTDOWN_DATE, TASKS_URL } from '../../constants/ind
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import Countdown from './Countdown';
+import FlipCountdown from '@rumess/react-flip-countdown';
 
 dayjs.extend(utc);
 
@@ -22,15 +22,21 @@ export default function HomeComponent() {
   const claimTicketMutation = useClaimTicketMutation();
   const { data: isWhitelisted } = useCheckUserIsInWhitelist(web3Instance, PROJECT_CONTRACT);
 
-  const now = dayjs.utc();
-  const _claimEndDate = dayjs.utc(COUNTDOWN_DATE);
-  const isExpireClaimDate = now.isAfter(_claimEndDate);
-
   const setContent = usePopupStore((state) => state.setContent);
+  const [isClaimTimeUp, setIsClaimTimeUp] = useState(false);
+
   const handleClaim = async () => {
     if (!isWhitelisted) {
       setOpen(true);
       setContent(<Error title={'You are not in Whitelist'} errorText={'Please check again'} />);
+      return;
+    }
+
+    if (!isClaimTimeUp) {
+      setOpen(true);
+      setContent(
+        <Error title={'Claim time is not reached'} errorText={'Cannot claim at this time'} />
+      );
       return;
     }
     try {
@@ -91,7 +97,23 @@ export default function HomeComponent() {
           </p>
           <span className="mt-6 block h-[5px] w-[114px] bg-[#0c455a]" />
           <p className="mt-10 font-semibold">Time to claim</p>
-          <Countdown />
+          <div className="clock">
+            <FlipCountdown
+              size="small"
+              hideYear
+              hideMonth
+              titlePosition="bottom"
+              yearTitle="Year"
+              monthTitle="Months"
+              dayTitle="Days"
+              hourTitle="Hours"
+              minuteTitle="Minutes"
+              secondTitle="Seconds"
+              endAtZero
+              onTimeUp={() => setIsClaimTimeUp(true)}
+              endAt={COUNTDOWN_DATE} // Date/Time
+            />
+          </div>
           <p className="mt-10 text-sm">
             <span className="mr-2 inline-block h-[18px] w-[18px] rounded-full bg-main align-top text-white">
               <BsCheck className="mx-auto text-xl" />
@@ -108,7 +130,7 @@ export default function HomeComponent() {
               <button
                 className="btn-ghost btn w-full max-w-[290px] uppercase"
                 onClick={handleClaim}
-                disabled={isExpireClaimDate}
+                disabled={!isClaimTimeUp}
               >
                 Claim
               </button>
