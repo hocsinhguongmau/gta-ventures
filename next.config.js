@@ -16,6 +16,7 @@ const nextConfig = {
     COUNTDOWN_DATE: process.env.COUNTDOWN_DATE,
     PROJECT_CONTRACT: process.env.PROJECT_CONTRACT,
     TASKS_URL: process.env.TASKS_URL,
+    SENPAD_CONTRACT: process.env.SENPAD_CONTRACT || '0x8061C7C3d86FBE77491457B2C94649DB07ee08fa',
   },
 };
 
