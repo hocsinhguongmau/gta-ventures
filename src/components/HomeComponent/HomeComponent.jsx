@@ -86,7 +86,7 @@ export default function HomeComponent() {
                 width={33}
                 height={20}
                 alt=""
-                className="absolute -top-4 left-[176px] z-20"
+                className="absolute -top-5 left-[178px] z-20"
               />
             </p>
             <p className="text-shadow">GTA VIP PAS NFT</p>

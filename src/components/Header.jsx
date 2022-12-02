@@ -59,11 +59,11 @@ export default function Header() {
               tabIndex={0}
               className="dropdown-content menu rounded-box mt-4 w-52 bg-[#040f18] p-2 text-center"
             >
-              <li>
+              {/* <li>
                 <Link href="/my-profile" className="block focus:bg-transparent">
                   Your NFTs
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <button className="mx-auto text-red-500 focus:bg-transparent" onClick={disconnect}>
                   Log out
