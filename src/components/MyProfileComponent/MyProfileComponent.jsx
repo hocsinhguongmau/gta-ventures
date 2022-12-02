@@ -3,13 +3,10 @@ import { formatAddress } from '@services/frontend';
 import Image from 'next/image';
 import React from 'react';
 import NFTItem from './NFTItem';
-import { useGetMintableNftQuery } from '../../hooks/query';
-import { PROJECT_CONTRACT } from '../../constants/index';
 
 export default function MyProfileComponent() {
-  const { account, web3Instance } = useMetaMask();
-
-  const { data: minableNft = 0 } = useGetMintableNftQuery(web3Instance, PROJECT_CONTRACT);
+  const { account } = useMetaMask();
+  const minableNft = 0;
   return (
     <div>
       <h1

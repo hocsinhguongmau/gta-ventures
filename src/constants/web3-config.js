@@ -1,20 +1,6 @@
-export const SENPAD_CONTRACT =
-  process.env.SENPAD_CONTRACT || '0x8061C7C3d86FBE77491457B2C94649DB07ee08fa';
-
-export const SENPAD_ABI = [
+export const GTA_PASS_ABI = [
   {
-    inputs: [
-      {
-        internalType: 'string',
-        name: 'name',
-        type: 'string',
-      },
-      {
-        internalType: 'string',
-        name: 'symbol',
-        type: 'string',
-      },
-    ],
+    inputs: [],
     stateMutability: 'nonpayable',
     type: 'constructor',
   },
@@ -111,6 +97,97 @@ export const SENPAD_ABI = [
     ],
     name: 'Transfer',
     type: 'event',
+  },
+  {
+    inputs: [],
+    name: 'PASS_LIMIT',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'TOKEN_BEGIN',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'VIP_PASS_URI',
+    outputs: [
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: '_decimals',
+    outputs: [
+      {
+        internalType: 'uint8',
+        name: '',
+        type: 'uint8',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: '_name',
+    outputs: [
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: '_symbol',
+    outputs: [
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: '_token_counter',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
@@ -134,9 +211,9 @@ export const SENPAD_ABI = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_address',
-        type: 'address',
+        internalType: 'address[]',
+        name: '_addresses',
+        type: 'address[]',
       },
     ],
     name: 'allowAccess',
@@ -176,6 +253,19 @@ export const SENPAD_ABI = [
         internalType: 'uint256',
         name: '',
         type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'check_claim',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
       },
     ],
     stateMutability: 'view',
@@ -195,93 +285,19 @@ export const SENPAD_ABI = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'claim_tickets',
-    outputs: [
+    inputs: [
       {
-        internalType: 'uint256[]',
+        internalType: 'address',
         name: '',
-        type: 'uint256[]',
+        type: 'address',
       },
     ],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'debug_get_config',
+    name: 'claimers',
     outputs: [
       {
-        components: [
-          {
-            internalType: 'bool',
-            name: 'initialized',
-            type: 'bool',
-          },
-          {
-            internalType: 'address',
-            name: 'senpad_storage_contract_address',
-            type: 'address',
-          },
-          {
-            internalType: 'address',
-            name: 'selling_nftCollection',
-            type: 'address',
-          },
-          {
-            internalType: 'uint256',
-            name: 'max_supply',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'tickets_per_user',
-            type: 'uint256',
-          },
-          {
-            internalType: 'string',
-            name: 'ticket_uri',
-            type: 'string',
-          },
-          {
-            internalType: 'uint256',
-            name: 'claimed_count',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'unit_price_in_gwei',
-            type: 'uint256',
-          },
-          {
-            internalType: 'address',
-            name: 'cash_wallet',
-            type: 'address',
-          },
-          {
-            internalType: 'uint256',
-            name: 'ticket_claiming_start_time',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'ticket_claiming_end_time',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'nft_claiming_start_time',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'nft_claiming_end_time',
-            type: 'uint256',
-          },
-        ],
-        internalType: 'struct SenPadConfig',
+        internalType: 'bool',
         name: '',
-        type: 'tuple',
+        type: 'bool',
       },
     ],
     stateMutability: 'view',
@@ -314,19 +330,6 @@ export const SENPAD_ABI = [
         internalType: 'address',
         name: '',
         type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'get_nft_unit_price',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'unit_price',
-        type: 'uint256',
       },
     ],
     stateMutability: 'view',
@@ -346,19 +349,6 @@ export const SENPAD_ABI = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'has_claimed_tickets',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
     inputs: [
       {
         internalType: 'address',
@@ -383,22 +373,29 @@ export const SENPAD_ABI = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'ticket_ids',
-        type: 'uint256[]',
-      },
-    ],
-    name: 'mint_nft',
+    inputs: [],
+    name: 'mintPass',
     outputs: [
       {
-        internalType: 'uint256[]',
+        internalType: 'uint256',
         name: '',
-        type: 'uint256[]',
+        type: 'uint256',
       },
     ],
-    stateMutability: 'payable',
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'minting_before_date',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -409,25 +406,6 @@ export const SENPAD_ABI = [
         internalType: 'string',
         name: '',
         type: 'string',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    name: 'nft_claimers',
-    outputs: [
-      {
-        internalType: 'address',
-        name: 'claimer',
-        type: 'address',
       },
     ],
     stateMutability: 'view',
@@ -544,501 +522,17 @@ export const SENPAD_ABI = [
   {
     inputs: [
       {
-        internalType: 'string[]',
-        name: '_tokenURIs',
-        type: 'string[]',
-      },
-    ],
-    name: 'set_NFT_Token_URIs',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_senpad_storage_contract_address',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_selling_nftCollection',
-        type: 'address',
-      },
-      {
         internalType: 'uint256',
-        name: '_max_supply',
+        name: '_minting_before_date',
         type: 'uint256',
       },
       {
         internalType: 'uint256',
-        name: '_tickets_per_user',
-        type: 'uint256',
-      },
-      {
-        internalType: 'string',
-        name: '_ticket_uri',
-        type: 'string',
-      },
-      {
-        internalType: 'uint256',
-        name: '_unit_price_in_gwei',
-        type: 'uint256',
-      },
-      {
-        internalType: 'address',
-        name: '_cash_wallet',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_ticket_claiming_start_time',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_ticket_claiming_end_time',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_nft_claiming_start_time',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_nft_claiming_end_time',
+        name: '_pass_limit',
         type: 'uint256',
       },
     ],
     name: 'setup',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'bytes4',
-        name: 'interfaceId',
-        type: 'bytes4',
-      },
-    ],
-    name: 'supportsInterface',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'symbol',
-    outputs: [
-      {
-        internalType: 'string',
-        name: '',
-        type: 'string',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'tokenURI',
-    outputs: [
-      {
-        internalType: 'string',
-        name: '',
-        type: 'string',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'from',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: 'to',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'transferFrom',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-    ],
-    name: 'transferOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-];
-
-export const NFT_ABI = [
-  {
-    inputs: [],
-    stateMutability: 'nonpayable',
-    type: 'constructor',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'owner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'approved',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'Approval',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'owner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'operator',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'bool',
-        name: 'approved',
-        type: 'bool',
-      },
-    ],
-    name: 'ApprovalForAll',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'previousOwner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-    ],
-    name: 'OwnershipTransferred',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'from',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'to',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'Transfer',
-    type: 'event',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'to',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'approve',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'owner',
-        type: 'address',
-      },
-    ],
-    name: 'balanceOf',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'getApproved',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'owner',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: 'operator',
-        type: 'address',
-      },
-    ],
-    name: 'isApprovedForAll',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'recipient',
-        type: 'address',
-      },
-      {
-        internalType: 'string',
-        name: 'tokenURI',
-        type: 'string',
-      },
-    ],
-    name: 'mintNFT',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'name',
-    outputs: [
-      {
-        internalType: 'string',
-        name: '',
-        type: 'string',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'owner',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'ownerOf',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'from',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: 'to',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'safeTransferFrom',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'from',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: 'to',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: 'data',
-        type: 'bytes',
-      },
-    ],
-    name: 'safeTransferFrom',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'operator',
-        type: 'address',
-      },
-      {
-        internalType: 'bool',
-        name: 'approved',
-        type: 'bool',
-      },
-    ],
-    name: 'setApprovalForAll',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -1132,277 +626,8 @@ export const NFT_ABI = [
   },
 ];
 
-export const LAUNCHPAD_STORAGE_ABI = [
-  {
-    inputs: [],
-    stateMutability: 'nonpayable',
-    type: 'constructor',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_address',
-        type: 'address',
-      },
-    ],
-    name: 'allowAccess',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_nft_smartcontract',
-        type: 'address',
-      },
-    ],
-    name: 'check_locked_nft',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_address',
-        type: 'address',
-      },
-    ],
-    name: 'denyAccess',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'list_locked_nfts',
-    outputs: [
-      {
-        components: [
-          {
-            internalType: 'address',
-            name: 'nft_owner',
-            type: 'address',
-          },
-          {
-            internalType: 'address',
-            name: 'nft_contract',
-            type: 'address',
-          },
-          {
-            internalType: 'uint256',
-            name: 'tokenId',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'lock_ts',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'lock_until',
-            type: 'uint256',
-          },
-        ],
-        internalType: 'struct Locked_NFT_Item[]',
-        name: '',
-        type: 'tuple[]',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'nft_address',
-        type: 'address',
-      },
-    ],
-    name: 'list_locked_nfts_by_owned_collections',
-    outputs: [
-      {
-        components: [
-          {
-            internalType: 'address',
-            name: 'nft_owner',
-            type: 'address',
-          },
-          {
-            internalType: 'address',
-            name: 'nft_contract',
-            type: 'address',
-          },
-          {
-            internalType: 'uint256',
-            name: 'tokenId',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'lock_ts',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'lock_until',
-            type: 'uint256',
-          },
-        ],
-        internalType: 'struct Locked_NFT_Item[]',
-        name: '',
-        type: 'tuple[]',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'owner',
-        type: 'address',
-      },
-    ],
-    name: 'list_locked_nfts_by_owner',
-    outputs: [
-      {
-        components: [
-          {
-            internalType: 'address',
-            name: 'nft_owner',
-            type: 'address',
-          },
-          {
-            internalType: 'address',
-            name: 'nft_contract',
-            type: 'address',
-          },
-          {
-            internalType: 'uint256',
-            name: 'tokenId',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'lock_ts',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'lock_until',
-            type: 'uint256',
-          },
-        ],
-        internalType: 'struct Locked_NFT_Item[]',
-        name: '',
-        type: 'tuple[]',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_nft_smartcontract',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'lock_duration',
-        type: 'uint256',
-      },
-    ],
-    name: 'lock_nft',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: '',
-        type: 'bytes',
-      },
-    ],
-    name: 'onERC721Received',
-    outputs: [
-      {
-        internalType: 'bytes4',
-        name: '',
-        type: 'bytes4',
-      },
-    ],
-    stateMutability: 'pure',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_nft_smartcontract',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'unlock_nft',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-];
+export const GTA_PASS_CONTRACT =
+  process.env.GTA_PASS_CONTRACT || '0xeBDb8b142D732736fbBE8766bb855e94069C5e0A';
 
 export const QUERY_KEY = {
   ACCOUNT: 'account',
@@ -1421,4 +646,6 @@ export const QUERY_KEY = {
   HAS_CLAIM_TICKET: 'has_claim_ticket',
   CLAIM_TICKET: 'claim_ticket',
   IS_APPROVED_TICKET: 'is_approve_ticket',
+  CHECK_CLAIM_PASS: 'check_claim_pass',
+  CLAIM_PASS: 'claim_pass',
 };

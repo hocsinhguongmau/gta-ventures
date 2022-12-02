@@ -6,13 +6,13 @@ import { Waiting } from '@components/Popup/Waiting';
 import { Error } from '@components/Popup/Error';
 import { Success } from '@components/Popup/Success';
 import { useClaimTicketMutation } from '../../hooks/mutations';
-import { useCheckUserIsInWhitelist } from '../../hooks/query';
 import useMetamask from '../../hooks/useMetamask';
-import { PROJECT_CONTRACT, COUNTDOWN_DATE, TASKS_URL } from '../../constants/index';
+import { COUNTDOWN_DATE, TASKS_URL } from '../../constants/index';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import FlipCountdown from '@rumess/react-flip-countdown';
+import { useCheckClaimPass, useCheckUserIsInWhitelist } from '../../hooks/query';
 
 dayjs.extend(utc);
 
@@ -20,10 +20,11 @@ export default function HomeComponent() {
   const setOpen = usePopupStore((state) => state.setOpen);
   const { connect, web3Instance, isActive } = useMetamask();
   const claimTicketMutation = useClaimTicketMutation();
-  const { data: isWhitelisted } = useCheckUserIsInWhitelist(web3Instance, PROJECT_CONTRACT);
 
   const setContent = usePopupStore((state) => state.setContent);
   const [isClaimTimeUp, setIsClaimTimeUp] = useState(false);
+  const { data: isClaimPass } = useCheckClaimPass(web3Instance);
+  const { data: isWhitelisted } = useCheckUserIsInWhitelist(web3Instance);
 
   const handleClaim = async () => {
     if (!isWhitelisted) {
@@ -44,7 +45,6 @@ export default function HomeComponent() {
       setContent(<Waiting />);
       const receipt = await claimTicketMutation.mutateAsync({
         web3: web3Instance,
-        projectContract: PROJECT_CONTRACT,
       });
 
       if (receipt) {
@@ -114,6 +114,7 @@ export default function HomeComponent() {
               endAt={COUNTDOWN_DATE} // Date/Time
             />
           </div>
+
           <p className="mt-10 text-sm">
             <span className="mr-2 inline-block h-[18px] w-[18px] rounded-full bg-main align-top text-white">
               <BsCheck className="mx-auto text-xl" />
@@ -127,13 +128,19 @@ export default function HomeComponent() {
           </p>
           <p className="mt-4">
             {isActive ? (
-              <button
-                className="btn-ghost btn w-full max-w-[290px] uppercase"
-                onClick={handleClaim}
-                disabled={!isClaimTimeUp}
-              >
-                Claim
-              </button>
+              <>
+                {!isClaimPass ? (
+                  <button
+                    className="btn-ghost btn w-full max-w-[290px] uppercase"
+                    onClick={handleClaim}
+                    disabled={!isClaimTimeUp}
+                  >
+                    Claim
+                  </button>
+                ) : (
+                  <span className="pt-5">Congratulation, you have already owned GTA Pass</span>
+                )}
+              </>
             ) : (
               <button className="btn-ghost btn w-full max-w-[290px] uppercase" onClick={connect}>
                 Connect to wallet

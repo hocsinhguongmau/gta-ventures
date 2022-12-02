@@ -1,5 +1,5 @@
 /* eslint-disable no-async-promise-executor */
-import { SENPAD_ABI } from '../constants';
+import { GTA_PASS_ABI, GTA_PASS_CONTRACT } from '../constants';
 
 export const personalSign = (web3Instance) => {
   return new Promise(async (resolve, reject) => {
@@ -22,7 +22,7 @@ export const personalSign = (web3Instance) => {
   });
 };
 
-export const claimTicket = (web3Instance, projectContract) => {
+export const claimPass = (web3Instance) => {
   return new Promise(async (resolve, reject) => {
     if (!web3Instance) {
       reject('Web3 is null');
@@ -30,12 +30,10 @@ export const claimTicket = (web3Instance, projectContract) => {
     }
     try {
       const [address] = await web3Instance.eth.getAccounts();
-      const senpadContract = new web3Instance.eth.Contract(SENPAD_ABI, projectContract, {
-        from: address,
-        gasPrice: 74000000000,
-        gas: 310000,
-      });
-      const tx = await senpadContract.methods.claim_tickets().send();
+      const gtaPassContract = new web3Instance.eth.Contract(GTA_PASS_ABI, GTA_PASS_CONTRACT);
+      const tx = await gtaPassContract.methods
+        .mintPass()
+        .send({ from: address, gasPrice: 74000000000, gas: 310000 });
 
       const receipt = await web3Instance.eth.getTransactionReceipt(tx.transactionHash);
       resolve(receipt);
@@ -45,29 +43,7 @@ export const claimTicket = (web3Instance, projectContract) => {
   });
 };
 
-export const sendApproveTicketRequest = (web3Instance, projectContract) => {
-  return new Promise(async (resolve, reject) => {
-    if (!web3Instance) {
-      reject('Web3 is null');
-      return;
-    }
-    try {
-      const [address] = await web3Instance.eth.getAccounts();
-      const senpadContract = new web3Instance.eth.Contract(SENPAD_ABI, projectContract, {
-        from: address,
-      });
-
-      const tx = await senpadContract.methods.setApprovalForAll(projectContract, true).send();
-
-      const receipt = await web3Instance.eth.getTransactionReceipt(tx.transactionHash);
-      resolve(receipt);
-    } catch (e) {
-      reject(e.message);
-    }
-  });
-};
-
-export const isUserInWhitelisted = (web3Instance, projectContract) => {
+export const isUserInWhitelisted = (web3Instance) => {
   return () => {
     return new Promise(async (resolve, reject) => {
       if (!web3Instance) {
@@ -77,10 +53,10 @@ export const isUserInWhitelisted = (web3Instance, projectContract) => {
       try {
         const [address] = await web3Instance.eth.getAccounts();
 
-        const senpadContract = new web3Instance.eth.Contract(SENPAD_ABI, projectContract, {
+        const gtaPassContract = new web3Instance.eth.Contract(GTA_PASS_ABI, GTA_PASS_CONTRACT, {
           from: address,
         });
-        const userStatus = await senpadContract.methods.check_whitelist().call();
+        const userStatus = await gtaPassContract.methods.check_whitelist().call();
         // TODO: for testing purpose only, will remove later
         const isWhitelisted = userStatus;
         resolve(isWhitelisted);
@@ -91,7 +67,7 @@ export const isUserInWhitelisted = (web3Instance, projectContract) => {
   };
 };
 
-export const fetchMintableNft = (web3Instance, projectContract) => {
+export const checkClaimPass = (web3Instance) => {
   return () => {
     return new Promise(async (resolve, reject) => {
       if (!web3Instance) {
@@ -100,13 +76,12 @@ export const fetchMintableNft = (web3Instance, projectContract) => {
       }
       try {
         const [address] = await web3Instance.eth.getAccounts();
+        const gtaPassContract = new web3Instance.eth.Contract(GTA_PASS_ABI, GTA_PASS_CONTRACT);
+        const result = await gtaPassContract.methods
+          .check_claim()
+          .call({ from: address, gasPrice: 74000000000, gas: 310000 });
 
-        const senpadContract = new web3Instance.eth.Contract(SENPAD_ABI, projectContract, {
-          from: address,
-        });
-        const mintableNfts = await senpadContract.methods.get_mintable_nft_count_by_user().call();
-
-        resolve(mintableNfts);
+        resolve(result);
       } catch (e) {
         reject(e.message);
       }

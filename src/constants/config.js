@@ -10,9 +10,6 @@ export const COOKIES = {
 };
 export const ETHER_SCAN_URL = process.env.ETHER_SCAN_URL || 'https://goerli.etherscan.io/tx';
 
-export const COUNTDOWN_DATE = process.env.COUNTDOWN_DATE || '2022-12-12';
-
-export const PROJECT_CONTRACT =
-  process.env.PROJECT_CONTRACT || '0xC057aB5cA662426E6455a94416b4ab14902fF95c';
+export const COUNTDOWN_DATE = process.env.COUNTDOWN_DATE || '2021-12-12';
 
 export const TASKS_URL = process.env.TASKS_URL || 'https://gleam.io/';
